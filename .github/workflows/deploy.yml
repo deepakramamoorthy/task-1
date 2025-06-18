@@ -18,7 +18,6 @@ jobs:
         with:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             APP_DIR="/home/${{ secrets.HOST_USERNAME }}/node-app"
 
