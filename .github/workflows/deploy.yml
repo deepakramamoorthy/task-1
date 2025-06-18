@@ -1,0 +1,41 @@
+name: Deploy Node.js App with Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Remote Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.HOST_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            APP_DIR="/home/${{ secrets.HOST_USERNAME }}/node-app"
+
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "Cloning repository into $APP_DIR"
+              git clone https://github.com/${{ github.repository }}.git $APP_DIR
+              cd $APP_DIR
+            else
+              echo "Repository already exists, pulling latest changes."
+              cd $APP_DIR
+              git pull origin main 
+            fi
+
+            docker compose down --remove-orphans || true
+
+            docker compose up --build -d
+
+            echo "Deployment script finished."
+
+            
