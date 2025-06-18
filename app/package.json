@@ -1,0 +1,13 @@
+{
+  "name": "simple-node-pg-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app to fetch data from PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
