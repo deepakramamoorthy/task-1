@@ -32,8 +32,8 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p /home/${{ secrets.SERVER_USER }}/node-docker-deploy
-            cd /home/${{ secrets.SERVER_USER }}/node-docker-deploy
+            mkdir -p /home/ubuntu/node-deploy
+            cd /home/ubuntu/node-deploy
 
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node-app:latest
